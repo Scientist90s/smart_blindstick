@@ -3,6 +3,10 @@ The motivation behind this project is **to help visually impaired person to perc
 
 ## Steps for impementation
 
+## Pretrained weights
+1. [COCO weights](https://drive.google.com/file/d/18SAyrszaf4wJLKuM8xoEkKuxUismVjI8/view?usp=sharing)
+2. [Conceptual weights]()
+
 ## References
 1. [CLIP reference](https://openai.com/blog/clip/)
 2. [CLIP repository](https://github.com/rmokady/CLIP_prefix_caption)
