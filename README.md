@@ -5,7 +5,7 @@ The motivation behind this project is **to help visually impaired person to perc
 
 ## Pretrained weights
 1. [COCO weights](https://drive.google.com/file/d/18SAyrszaf4wJLKuM8xoEkKuxUismVjI8/view?usp=sharing)
-2. [Conceptual weights]()
+2. [Conceptual weights](https://drive.google.com/file/d/16nO7KA_-iABxA0TyP1llw136TFbgP2IO/view?usp=sharing)
 
 ## References
 1. [CLIP reference](https://openai.com/blog/clip/)
