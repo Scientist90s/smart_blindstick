@@ -1,25 +1,38 @@
-import cv2
+import requests
+import json
+import cv2 as cv
+import speech_recognition as sr
+import pyttsx3
 #from pygsr import Pygsr
 
+url = "http://192.168.0.16:5000/image"
+content_type = "image/jpeg"
+headers = {"content_type" : content_type}
 
-def text2audio(text):
-    import pyttsx3
+img = cv.imread("./assets/images/COCO_val2014_000000386164.jpg")
+_, img_encoded = cv.imencode('.jpg', img)
+response = requests.post(url, data=img_encoded.tobytes(), headers=headers)
+print(json.loads(response.text))
+
+def text2speech(text):
     engine = pyttsx3.init()
     engine.say(text)
     engine.runAndWait()
 
 def askQuestion():
-    
-    speech = Pygsr()
-    # duration in seconds
-    speech.record(3)
-    # select the language
-    phrase, complete_response = speech.speech_to_text('en_US')
-
-    print(phrase)
+    print("Inside askQuestion")
+    r = sr.Recognizer()
+    mic = sr.Microphone()
+    with mic as source:
+        audio = r.listen(mic)
+        try:
+        # using google speech recognition
+            print("Text: "+r.recognize_google(audio_text))
+        except:
+            print("Sorry, I did not get that")
 
 def main():
-    cam = cv2.VideoCapture(0)
+    cam = cv.VideoCapture(0)
     while(True):
         #text2audio("Please select one if you want to click the picture")
         option = input()
@@ -48,3 +61,6 @@ def main():
                 
         else:
             pass
+        
+if __name__ == "__main__":
+    askQuestion()

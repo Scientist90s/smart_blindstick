@@ -1,10 +1,26 @@
-from operator import is_
-from pydoc import cli
-from statistics import mode
 import requests
 from PIL import Image 
 from clip_local import generate_Inference
 import os
+from flask import Flask, render_template, request, Response
+import cv2 as cv
+import numpy as np
+import json
+
+app = Flask(__name__)
+app.config["UPLOAD_FOLDER"] = "./scripts"
+img = []
+file_name = "received_image.jpg"
+
+@app.route("/image", methods=["POST"])
+def home():
+    global img
+    if request.method == "POST":
+        nparr = np.frombuffer(request.data, np.uint8)
+        img = cv.imdecode(nparr, cv.IMREAD_COLOR)
+        response = {'message': f'image received. size={img.shape[1]}x{img.shape[0]}'}
+        response = json.dumps(response)
+        return Response(response=response, status=200, mimetype="application/json")
 
 
 def VQA(url, ques):
@@ -40,4 +56,5 @@ def clip():
     generate_Inference(weights_path, img_path, is_gpu)
     
 if __name__ == "__main__":
-    clip()
+    host = "192.168.0.16"
+    app.run(host=host)
