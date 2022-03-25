@@ -1,7 +1,0 @@
-pillow
-flask
-requests
-opencv-pyhton
-transformers
-git+https://github.com/openai/CLIP.git
-pyttsx3

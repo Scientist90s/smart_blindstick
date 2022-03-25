@@ -1,0 +1,7 @@
+pillow
+flask
+requests
+opencv-python
+torch
+git+https://github.com/huggingface/transformers.git
+git+https://github.com/openai/CLIP.git
