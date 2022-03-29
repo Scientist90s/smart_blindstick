@@ -7,6 +7,7 @@ from typing import Tuple, List, Optional
 from transformers import GPT2Tokenizer, GPT2LMHeadModel
 from tqdm import trange
 import PIL.Image
+import cv2 as cv
 
 T = torch.Tensor
 
@@ -200,8 +201,8 @@ def generate_Inference(model_path, img, is_gpu):
 
     use_beam_search = False #@param {type:"boolean"}  
 
-    pil_image = PIL.Image.open(img)
-    pil_image.show(pil_image)
+    pil_image = PIL.Image.fromarray(img)
+    pil_image.show("pil_image")
 
     image = preprocess(pil_image).unsqueeze(0).to(device)
     with torch.no_grad():
