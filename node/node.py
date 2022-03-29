@@ -3,16 +3,16 @@ import json
 import cv2 as cv
 import speech_recognition as sr
 import pyttsx3
-#from pygsr import Pygsr
+import base64
 
-url = "http://192.168.0.16:5000/image"
-content_type = "image/jpeg"
-headers = {"content_type" : content_type}
+img_path = "./assets/images/COCO_val2014_000000386164.jpg"
+read_image = True
 
-img = cv.imread("./assets/images/COCO_val2014_000000386164.jpg")
-_, img_encoded = cv.imencode('.jpg', img)
-response = requests.post(url, data=img_encoded.tobytes(), headers=headers)
-print(json.loads(response.text))
+#  parameters for web api
+clip_url = "http://192.168.0.16:5000/clip"
+vilt_url = "http://192.168.0.16:5000/vilt"
+# content_type = "appl"
+# headers = {"content_type" : content_type}
 
 def text2speech(text):
     engine = pyttsx3.init()
@@ -24,43 +24,51 @@ def askQuestion():
     r = sr.Recognizer()
     mic = sr.Microphone()
     with mic as source:
+        print("start speaking")
         audio = r.listen(mic)
         try:
         # using google speech recognition
-            print("Text: "+r.recognize_google(audio_text))
+            inference = r.recognize_google(audio)
+            print("Text: "+ inference)
+            return(inference)
         except:
             print("Sorry, I did not get that")
 
 def main():
     cam = cv.VideoCapture(0)
     while(True):
-        #text2audio("Please select one if you want to click the picture")
+        print("Please select 1 if you want to click the picture")
+        text2speech("Please select 1 if you want to click the picture")
         option = input()
         if(str(option) == "1"):
-            ret, frame = cam.read()
-            '''
-            send frame to server CLIP, async and wait
-            inference = received
-            
-            '''
+            if read_image == True:
+                frame = cv.imread(img_path)
+            else:
+                ret, frame = cam.read()
+            _, img_encoded = cv.imencode('.jpg', frame)
+            img_base64 = base64.b64encode(img_encoded).decode()
+            send_json = {"img": img_base64}
+            response = requests.post(clip_url, json=send_json)
+            response = response.json()
+            print(response)
+
             #text2audio(inference)
             while(True):
+                print("Please select 1 if you want to use VQA for the picture")
+                text2speech("Select 1 for VQA")
                 boolVQA = input()
                 if(str(boolVQA) == "1"):
-                    #ques = askQuestion()
-                    
-                    '''
-                    send frame along with the question to server ViLT, async and wait
-                    inferenceVQA = receivedVQA
-
-                    ''' 
+                    ques = askQuestion()
+                    send_json = {"img": img_base64, "que": f"{ques}?"}
+                    response = requests.post(vilt_url, json=send_json)
+                    response = response.json()
+                    print(response)
                     #text2audio(inferenceVQA)
 
                 else:
-                    break
-                
+                    break  
         else:
             pass
         
 if __name__ == "__main__":
-    askQuestion()
+    main()

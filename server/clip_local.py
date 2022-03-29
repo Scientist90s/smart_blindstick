@@ -212,5 +212,4 @@ def generate_Inference(model_path, img, is_gpu):
     else:
         generated_text_prefix = generate2(model, tokenizer, embed=prefix_embed)
 
-    print('\n')
-    print(generated_text_prefix)
+    return(generated_text_prefix)

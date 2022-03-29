@@ -1,7 +1,9 @@
+wheel
 pillow
 flask
 requests
 opencv-python
 torch
+# tokenizers==0.6.0
 git+https://github.com/huggingface/transformers.git
 git+https://github.com/openai/CLIP.git
