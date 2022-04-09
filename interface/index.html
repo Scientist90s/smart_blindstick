@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Smart BlindStick Vision</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  </head>
+  <body>
+  <section class="section">
+  <div class="columns">
+	<div class="column">
+		Camera View
+		<figure class="image is-256x256">
+			<img id="picture" src="https://media.istockphoto.com/photos/blind-man-crossing-a-street-picture-id1292075242?k=20&m=1292075242&s=612x612&w=0&h=CeztC1Y2erLKVZrnI1JoUf7DfskR9D1bb8933ul023w=">
+		</figure>
+	</div>
+	<div class="column">
+		<div class="mt-4" id="div_language">
+      <h2 class="mb-3 text-light">Select Language</h2>
+      <select class="form-select bg-secondary text-light" id="select_language" onchange="updateCountry()"></select>
+      <select class="form-select bg-secondary text-light mt-2" id="select_dialect"></select>
+    </div>
+		Ask a Question
+		<div class="buttons" id="start">
+			<button class="button is-primary">Speak</button>
+		</div >
+		<div class="buttons" id="stop">
+			<button class="button is-secondary">Stop Speak</button>
+		</div>
+		Result:
+		<span id="result" class="strong"></span>
+	</div>
+	<div class="column">
+		Take Picture
+		<div class="buttons">
+			<button class="button is-success" id="captureImageButton">Capture Image</button>
+		</div>
+	</div>
+	<div class="column">
+		Generate Caption
+		<div class="buttons">
+			<button class="button is-success" id="generateCaptionButton">Generate Caption</button>
+		</div>
+		<span id="clipResult" class="strong"></span>
+	</div>
+  </div>
+  <div class="column">
+	 <h2 class="mt-4">Transcript</h2>
+  <div class="p-3" style="border: 1px solid gray; height: 300px; border-radius: 8px;">
+  <span id="final" class="strong"></span>
+  <span id="interim" class="strong"></span>
+  <div class="mt-4">
+	<p id="status" class="mt-3" style="display: none">Listening ..</p>
+  </div>
+</div>
+  </div>
+  </section>
+  </body>
+  <script src="./speech.js"></script>
+  <script src="./language.js"></script>
+  <script src="./main.js"></script>
+</html>
