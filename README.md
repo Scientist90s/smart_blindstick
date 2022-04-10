@@ -30,6 +30,13 @@ Follow the below steps to successfully setup this repository to your local machi
     ```
 8. open another terminal and run `python3 node.py`
 
+### Running index.html in /interface
+
+1. Make sure the server.py file is running
+2. The html page is using bulma.io so if any errors occur related to bulma make sure that is installed.
+3. In main.js change the url to your host machine (image_endpoint variable, in two functions)
+4. In speech.js change the url to your host machine (only one)
+
 ## Pretrained weights
 1. [COCO weights](https://drive.google.com/file/d/18SAyrszaf4wJLKuM8xoEkKuxUismVjI8/view?usp=sharing)
 2. [Conceptual weights](https://drive.google.com/file/d/16nO7KA_-iABxA0TyP1llw136TFbgP2IO/view?usp=sharing)
