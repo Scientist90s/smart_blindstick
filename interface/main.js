@@ -40,6 +40,7 @@ function changeImage() {
 function generateCaption() {
 	var xhr = new XMLHttpRequest();
 	var image_endpoint = "http://10.0.2.15:5000/clip";
+	document.querySelector("#clipResult").innerHTML = "Generating Caption...(can take up to 45 seconds)"
 	xhr.open("POST", image_endpoint);
 	xhr.setRequestHeader("Accept", "application/json");
 	xhr.setRequestHeader("Content-Type", "application/json");
